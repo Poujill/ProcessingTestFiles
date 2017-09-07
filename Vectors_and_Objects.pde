@@ -1,12 +1,12 @@
-Movement mover;
 Movement[] objects = new Movement[1];
+float average = 0;
+float[] avgFrameRate = new float[0];
 
 void setup() {
   size(640,360);
   for(int i = 0; i<objects.length; i++){
     objects[i] = new Movement();
   }
-  //mover = new Movement(); 
 }
 
 void draw() {
@@ -16,7 +16,10 @@ void draw() {
     objects[i].checkEdges();
     objects[i].display();
   }
-   println("Objs Position: " + objects[0].position); 
+  avgFrameRate = append(avgFrameRate,frameRate);
+  average += frameRate;
+   //println(frameRate);
+   //println("Objs Position: " + objects[0].position); 
 }
 
 void mousePressed(){
@@ -45,6 +48,10 @@ void keyPressed(){
     for(int i = 0; i < objects.length; i++){
       println(objects[i].velocity + " " + objects[i].position);
     }
+  }
+  
+  if(keyCode == 39){
+    println(average/avgFrameRate.length);
   }
   //println(objects.length);
   
