@@ -36,6 +36,7 @@ void keyPressed(){
   if(keyCode == 83){
     objects =(Movement[]) append(objects, new Movement());
   }
+  
   if(keyCode == 37){
     if(objects.length>0){
       objects =(Movement[]) shorten(objects);    
