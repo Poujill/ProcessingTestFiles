@@ -9,18 +9,18 @@ class Movement {
     velocity = new PVector(random(-2, 2), random(-2, 2));  //The amount that the object will change in x or y.
   }
 
-  void update() {
+  void update() {    // Adds teh new vector to the current vector
     position.add(velocity);
   }
 
-  void display() {
+  void display() {  //Draws the ball to the screen
     noStroke();
     strokeWeight(2);
     fill(fillCol);
     ellipse(position.x, position.y, 48, 48);
   }
 
-  void checkEdges() {
+  void checkEdges() {    //Checks if object is going to hit the edge of the screen
 
     if (position.x > width) {
       position.x = 0;
@@ -37,7 +37,7 @@ class Movement {
     }
   }
   
-  boolean contains(){
+  boolean contains(){    //Checks if user is clicking inside the ball moving across the screen
     float disX = position.x - mouseX;
     float disY = position.y - mouseY;
     if(sqrt(sq(disX) + sq(disY)) < 24 ) {
