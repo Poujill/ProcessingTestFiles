@@ -1,0 +1,59 @@
+Tower Defense Game | Ocean Pollution
+
+Pieces of trash try to move from starting point to ending point
+	Each type of trash has different amount of health
+	each type has differnt speed
+
+Man-made machines(towers) to the rescue to stop trash from reaching end.
+	Different machines different abilities
+		diffent ranges
+		diff shooting speeds
+		diff effects
+
+Certain amount of money at the start of each level to buy machines to place on board
+	money regained from "recycling/disposing" of trash
+
+Score based on trash collected.
+
+as levels progress routes from start to finish change.
+Countdown to beginning of level
+	start early(bonus monies based on how early);
+
+Objects:
+	Towers
+		Diff machines
+	Trash
+		Diff types
+	Maps(preGen)
+	
+Towers
+	cost 			//cost to build tower
+	size 			//grid cost (amount of space)
+	rateOfFire		//how fast they fire with things within range
+	ammo			//what the object fires
+	rangeOfSight(ellipse)	//area of effect for the tower
+	buildTime		//time cost to build the tower
+	target			//what the tower is currently firing at within its range
+Ammo
+	type			//Defines each type of ammo
+	damage			//amount of damage a particular type of ammo does
+	movement		//movement from tower object to trash object
+	speed			//speed at which bullet moves from a-b
+Trash
+	Health			//amount of hp the trash has
+	collision		//detect if hit by piece of ammo and reduces health
+	movement		//able to move along path
+	Speed			//how fast moves from start to finish
+	reward(monies)		//amount of money awarded to player for killing trash
+Map
+	grid			//set amount of tiles
+	pathOfTrash		//path per level that the trash travels
+	towerSpots(isFilled)	//takes away parts of maps that contain towers
+levels
+	trash			//number of trash objects that will go through the level
+	map			//pregenerated map
+	initialStartingCash	//starting cash to start each level + %remaining cash from level before
+
+
+
+	

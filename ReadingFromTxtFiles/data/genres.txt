@@ -1,0 +1,10 @@
+Platformer
+Shooter
+Fighting Game/Beat ‘em up
+Stealth Game
+Survival Game
+RPG
+Simulation
+Tower Defense
+Sports
+Adventure Game
