@@ -4,7 +4,7 @@ Button button;
 int clk;
 float hr,vr;
 void setup(){
-  size(1000,1000);
+  size(800,800);
   //fullScreen();
   smooth();
   
@@ -22,7 +22,7 @@ void draw(){
   if(mouseY<button.y && mouseY >= button.y-100) button.y += 5;
   
   if(mouseX>button.x && mouseX <= button.x+100) button.x -= 5;
-  if(mouseX>button.x && mouseX <= button.x100) button.x -= 5;
+  if(mouseX>button.x && mouseX <= button.x-100) button.x -= 5;
   
   button.checkEdges();
 }
