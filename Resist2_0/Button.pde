@@ -58,7 +58,7 @@ class Button {
   }
 
   boolean mouseInRange() {
-    if (dist(mouseX, mouseY, position.x, position.y) < 58) return true;
+    if (dist(mouseX, mouseY, position.x, position.y) < 70) return true;
     else return false;
   }
 
@@ -95,11 +95,10 @@ class Button {
 
   boolean isClicked() {
     if (mouseOver()) { 
-      this.fillCol = color(0, 255, 255);
-      println("true");
+      //println("true");
       return true;
     } else {      
-      println("false");
+      //println("false");
       return false;
     }
   }
