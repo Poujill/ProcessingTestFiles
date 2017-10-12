@@ -38,8 +38,7 @@ void draw() {
   for (int i = 0; i < buttons.length; i++) {
     buttons[i].display();
   }
-  textSize(48);
-  text(textList[0], width/2, height/4+100, width, height);
+  
 
   //This is debug code( shows number of clicks / number of buttons on screen / current time|start time of timer| amount of time between current time and start that has to pass to reset sketch.
       //textSize(12);
@@ -152,7 +151,7 @@ void mousePressed() {
   clk++;
   resetTimer.reset();
   //println(clk);
-  if (mouseButton == RIGHT) clk += 10;
+  //if (mouseButton == RIGHT) clk += 10;
   for (int i = 0; i < buttons.length; i++) {
     buttons[i].isClicked();
   }
