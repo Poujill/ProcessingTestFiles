@@ -1,8 +1,10 @@
 Ball ball;
-
+Paddle paddle;
 void setup(){
   size(630,630);
   ball = new Ball();
+  paddle = new Paddle(100,10);
+  
 }
 
 void draw(){
@@ -14,9 +16,14 @@ void draw(){
   fill(0,0,255);
   rect(2*width/3,height-10,width,height);
   
+  paddle.update();
+  paddle.checkEdges();
+  paddle.display();
+  
+  
   ball.update();
   ball.checkEdges();
   ball.display();
-  println(ball.acc.x + " / " + ball.acc.y);
+  println(ball.vel.x + " / " + ball.vel.y);
   
 }

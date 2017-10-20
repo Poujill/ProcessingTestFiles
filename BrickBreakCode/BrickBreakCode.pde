@@ -6,12 +6,12 @@ int gameState = 0;
 boolean start;
 
 void setup() {
-  size(500, 500,P2D);
+  size(500, 500);
   start = false;
   paddle = new Paddle(100, 15);
   ball = new Ball(15);
   bricks = new ArrayList<Brick>();
-  noCursor();
+  //noCursor();
   for (int i=0; i<10; i++) {
     bricks.add(new Brick());
   }
@@ -43,12 +43,11 @@ void gameRun() {
   paddle.display();
 
   ball.update();
-  //if (ball.hitPaddle(paddle)) ball.hitPaddleSegment(paddle);
   ball.hitPaddleSegment(paddle);
   ball.checkEdges();
   ball.display();
   
-  println(ball.vel.x + " / " + ball.vel.y);
+  //println(ball.vel.x + " / " + ball.vel.y);
 
   for (int i=0; i<bricks.size(); i++) {
     Brick brick = bricks.get(i);
