@@ -6,10 +6,10 @@ class Brick {
   Timer cooldown;
 
   Brick() {
-    r = (int)random(20, 80);
+    r = 40;
     pos = new PVector(random(50, width-50), random(50, height-200));
     health = calcHealth(weight1);
-    cooldown = new Timer(1000);
+    cooldown = new Timer(500);
     
   }
 
@@ -21,7 +21,7 @@ class Brick {
     strokeWeight(3);
     rectMode(CENTER);
     rect(0, 0, r, r);
-    //text(health, 0,0);
+    text(health, 0,0);
     popMatrix();
   }
 

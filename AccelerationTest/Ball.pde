@@ -42,25 +42,43 @@ class Ball {
     if (pos.y-24<0) {
       vel.y *= -1;
     }
-
-    //This is for the paddle
-    if (this.pos.y+r > paddle.y && this.pos.y-r < paddle.y + paddle.h) {
-      //First Third
-      if (this.pos.x+r > paddle.x && this.pos.x-r < paddle.x + paddle.w/3) {
-        vel.x = -4;
-        vel.y *= -1;
+    
+    if (pos.y+r > paddle.y && pos.y-r < paddle.y + paddle.h) {
+      //Divided in two =============================================================================
+      if (pos.x+r >= paddle.x && pos.x-r < paddle.x+paddle.w/2) {
+        float distance = abs((paddle.x+paddle.w/2) - pos.x);
+        distance = map(distance,0,60,1,10);
+        vel.x = -distance;
+        vel.y*= -1;
+        vel.setMag(topSpeed);
       }
-      //Middle Third
-      else if (this.pos.x+r > paddle.x- paddle.w/3 && this.pos.x-r < paddle.x + (2*paddle.w/3)) {
-        vel.x = .19;
-        vel.y *= -1;
-      }
-      //Last Third
-      else if (this.pos.x+r > paddle.x + (2*paddle.w/3) && this.pos.x-r < paddle.x+paddle.w) {
-        vel.x = 4;
-        vel.y *= -1;
+      else if (pos.x+r >= paddle.x+paddle.w/2 && pos.x-r < paddle.x +paddle.w) {
+        float distance = abs((paddle.x+paddle.w/2) - pos.x);
+        distance = map(distance,0,60,0,10);
+        vel.x = distance;
+        vel.y*= -1;
+        vel.setMag(topSpeed);
       }
     }
+
+//    //This is for the paddle
+//    if (this.pos.y+r > paddle.y && this.pos.y-r < paddle.y + paddle.h) {
+//      //First Third
+//      if (this.pos.x+r > paddle.x && this.pos.x-r < paddle.x + paddle.w/3) {
+//        vel.x = -4;
+//        vel.y *= -1;
+//      }
+//      //Middle Third
+//      else if (this.pos.x+r > paddle.x- paddle.w/3 && this.pos.x-r < paddle.x + (2*paddle.w/3)) {
+//        vel.x = .19;
+//        vel.y *= -1;
+//      }
+//      //Last Third
+//      else if (this.pos.x+r > paddle.x + (2*paddle.w/3) && this.pos.x-r < paddle.x+paddle.w) {
+//        vel.x = 4;
+//        vel.y *= -1;
+//      }
+//    }
 
 
 

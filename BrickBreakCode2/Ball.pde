@@ -46,7 +46,7 @@ class Ball {
 
   boolean hitBrick(Brick brick) {
     float distance = dist(pos.x, pos.y, brick.pos.x, brick.pos.y);
-    if (distance < brick.r) return true;
+    if (distance <= brick.r) return true;
     else return false;
   }
 }

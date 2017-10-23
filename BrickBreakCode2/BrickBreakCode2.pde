@@ -6,14 +6,14 @@ int gameState = 0;
 boolean start;
 
 //Weights
-  float[] weight1 = {0.75, 0.15, 0.1};
+float[] weight1 = {0.75, 0.15, 0.1};
 
 
 
 
 
 void setup() {
-  size(1000,1000);
+  size(1000, 1000);
   start = false;
   paddle = new Paddle(100, 15);
   ball = new Ball(15);
@@ -26,22 +26,21 @@ void setup() {
 }
 
 void draw() {
-  switch (gameState){
-      case 0:
-        gameStart();
-        break;
-      case 1:
-        gameRun();
-        break;
-      case 2:
-        gameEnd();
-        break;
-  } 
+  switch (gameState) {
+  case 0:
+    gameStart();
+    break;
+  case 1:
+    gameRun();
+    break;
+  case 2:
+    gameEnd();
+    break;
+  }
 }
 
 void gameStart() {
   background(0);
-  
 }
 
 void gameRun() {
@@ -53,42 +52,39 @@ void gameRun() {
   ball.update();
   ball.checkEdges();
   ball.display();
-  
-  //println(ball.vel.x + " / " + ball.vel.y);
 
   for (int i=0; i<bricks.size(); i++) {
     Brick brick = bricks.get(i);
-    if (ball.hitBrick(brick)) {
+    if (ball.hitBrick(brick) && brick.cooldown.isFinished()) {
+      
+      
       ball.vel.y *= -1;
       if (brick.health > 0) {
-        if(brick.cooldown.isFinished()){
-          brick.cooldown.reset();
-          brick.health -= 1;
-        }
-      } else {
-        bricks.remove(brick);
+        brick.health -= 1;
+        brick.cooldown.reset();
       }
-      
-    }
+    } else if (brick.health <= 0) {
+      bricks.remove(brick);
+    }    
     brick.display();
   }
-  
-  //if(time.isFinished()){
-  //  time.reset();
-  //  println("Timer has finished");
-  //  bricks.add(new Brick());
-  //} else {
-   
-  //}
-  
 }
+
+
+//if(time.isFinished()){
+//  time.reset();
+//  println("Timer has finished");
+//  bricks.add(new Brick());
+//} else {
+
+//}
 
 void gameEnd() {
-  background(255,0,0);
+  background(255, 0, 0);
 }
 
-void keyPressed(){
-  if(!start && keyCode == 32)
+void keyPressed() {
+  if (!start && keyCode == 32)
     gameState ++;
-    start = true;
+  start = true;
 }
