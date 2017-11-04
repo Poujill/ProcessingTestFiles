@@ -5,9 +5,9 @@ class Ball {
   
   Ball(int radius) {
     pos = new PVector(width/2, height/2);
-    vel = new PVector(3, 3);
+    vel = new PVector(0,10);
     r = radius;
-    topSpeed = 8;
+    topSpeed = 12;
   }
 
   void display() {
@@ -22,7 +22,7 @@ class Ball {
 
   void checkEdges() {
     if (pos.x-r < 0 || pos.x+r > width) vel.x *= -1;
-    if (pos.y-r < 0) vel.y *= -1;
+    if (pos.y-r < 0 || pos.y+r > height) vel.y *= -1;
     //if (pos.y+r > height) gameState ++;
     
     if (pos.y+r > paddle.y && pos.y-r < paddle.y + paddle.h) {
@@ -45,8 +45,8 @@ class Ball {
   }
 
   boolean hitBrick(Brick brick) {
-    float distance = dist(pos.x, pos.y, brick.pos.x, brick.pos.y);
-    if (distance <= brick.r) return true;
+    float distance = dist(this.pos.x, this.pos.y, (brick.pos.x), (brick.pos.y));
+    if (distance <= brick.r/2) return true;
     else return false;
   }
 }

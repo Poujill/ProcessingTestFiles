@@ -1,9 +1,11 @@
-Timer time;
+Timer time,movement;
 Paddle paddle;
 Ball ball;
 ArrayList<Brick> bricks;
 int gameState = 0;
 boolean start;
+int timeStart = 5000, movementStart =5000;
+int timeCount = 0, moveCount = 0;
 
 //Weights
 float[] weight1 = {0.75, 0.15, 0.1};
@@ -17,7 +19,8 @@ void setup() {
   start = false;
   paddle = new Paddle(100, 15);
   ball = new Ball(15);
-  time = new Timer(5000);
+  time = new Timer(timeStart);
+  movement = new Timer(movementStart);
   bricks = new ArrayList<Brick>();
   //noCursor();
   for (int i=0; i<10; i++) {
@@ -55,29 +58,131 @@ void gameRun() {
 
   for (int i=0; i<bricks.size(); i++) {
     Brick brick = bricks.get(i);
-    if (ball.hitBrick(brick) && brick.cooldown.isFinished()) {
-      
-      
-      ball.vel.y *= -1;
-      if (brick.health > 0) {
-        brick.health -= 1;
-        brick.cooldown.reset();
-      }
-    } else if (brick.health <= 0) {
-      bricks.remove(brick);
-    }    
+    if((ball.pos.y - ball.r) <= (brick.pos.y + brick.r) &&
+       (ball.pos.y - ball.r) >= (brick.pos.y) &&
+       ball.pos.x >= (brick.pos.x) &&
+       ball.pos.x <= (brick.pos.x + brick.r) &&
+       //ball.hitBrick(brick) &&
+       brick.cooldown.isFinished())
+       {
+         ball.vel.y *= -1;
+         bricks.remove(brick);
+       }
+       
+     //Top of Brick
+     if((ball.pos.y + ball.r) >= (brick.pos.y + brick.r) &&
+       (ball.pos.y - ball.r) <= (brick.pos.y) &&
+       ball.pos.x >= (brick.pos.x) &&
+       ball.pos.x <= (brick.pos.x + brick.r) &&
+       //ball.hitBrick(brick) &&
+       brick.cooldown.isFinished())
+       {
+         bricks.remove(brick);
+         ball.vel.y *= -1;
+       }
+       
+     //Left side of Brick
+     if((ball.pos.x + ball.r) >= (brick.pos.x) &&
+        (ball.pos.x + ball.r) <= (brick.pos.x + brick.r) &&
+        ball.pos.y >= (brick.pos.y) &&
+        ball.pos.y <= (brick.pos.y + brick.r) &&
+        //ball.hitBrick(brick) &&
+        brick.cooldown.isFinished())
+        {
+          ball.vel.x *= -1;
+          bricks.remove(brick);
+        }
+        
+      //Right side of brick  
+      if((ball.pos.x - ball.r) <= (brick.pos.x) &&
+        (ball.pos.x + ball.r) >= (brick.pos.x + brick.r) &&
+        ball.pos.y >= (brick.pos.y) &&
+        ball.pos.y <= (brick.pos.y + brick.r) &&
+        //ball.hitBrick(brick) &&
+        brick.cooldown.isFinished())
+        {
+          ball.vel.x *= -1;
+          bricks.remove(brick);
+        } 
+    ////Bottom of Brick
+    //if((ball.pos.y - ball.r) <= (brick.pos.y + brick.r/2) &&
+    //   (ball.pos.y - ball.r) >= (brick.pos.y - brick.r/2) &&
+    //   ball.pos.x >= (brick.pos.x - brick.r/2) &&
+    //   ball.pos.x <= (brick.pos.x + brick.r/2) &&
+    //   ball.hitBrick(brick) &&
+    //   brick.cooldown.isFinished())
+    //   {
+    //     ball.vel.y *= -1;
+    //     bricks.remove(brick);
+    //   }
+       
+    // //Top of Brick
+    // if((ball.pos.y + ball.r) >= (brick.pos.y + brick.r/2) &&
+    //   (ball.pos.y - ball.r) <= (brick.pos.y - brick.r/2) &&
+    //   ball.pos.x >= (brick.pos.x - brick.r/2) &&
+    //   ball.pos.x <= (brick.pos.x + brick.r/2) &&
+    //   ball.hitBrick(brick) &&
+    //   brick.cooldown.isFinished())
+    //   {
+    //     ball.vel.y *= -1;
+    //     bricks.remove(brick);
+    //   }
+       
+    // //Left side of Brick
+    // if((ball.pos.x + ball.r) >= (brick.pos.x - brick.r/2) &&
+    //    (ball.pos.x + ball.r) <= brick.pos.x &&
+    //    ball.pos.y >= (brick.pos.y - brick.r/2) &&
+    //    ball.pos.y <= (brick.pos.y + brick.r/2) &&
+    //    ball.hitBrick(brick) &&
+    //    brick.cooldown.isFinished())
+    //    {
+    //      ball.vel.x *= -1;
+    //      bricks.remove(brick);
+    //    }
+        
+    //  //Right side of brick  
+    //  if((ball.pos.x - ball.r) <= (brick.pos.x - brick.r/2) &&
+    //    (ball.pos.x + ball.r) >= brick.pos.x &&
+    //    ball.pos.y >= (brick.pos.y - brick.r/2) &&
+    //    ball.pos.y <= (brick.pos.y + brick.r/2) &&
+    //    ball.hitBrick(brick) &&
+    //    brick.cooldown.isFinished())
+    //    {
+    //      ball.vel.x *= -1;
+    //      bricks.remove(brick);
+    //    }   
     brick.display();
   }
+
+
+  if(time.isFinished()){
+    time.reset();
+    //println("Timer has finished");
+    bricks.add(new Brick());
+    timeCount++;
+    if(timeCount >= 5){
+      timeCount = 0;
+      timeStart -= 1000;
+      time = new Timer(timeStart);
+    }
+  }
+  
+  if(movement.isFinished()){
+    movement.reset();
+    for(Brick brick: bricks){
+      brick.pos.y += 20;
+    }
+    moveCount++;
+    if(moveCount >= 10){
+      moveCount = 0;
+      movementStart -= 1000;
+      movement = new Timer(movementStart);
+    }
+  }
+  
+  text(moveCount + " / " + movementStart + "\n" + timeCount + " / " + timeStart, 10, 10);
 }
 
-
-//if(time.isFinished()){
-//  time.reset();
-//  println("Timer has finished");
-//  bricks.add(new Brick());
-//} else {
-
-//}
 
 void gameEnd() {
   background(255, 0, 0);
